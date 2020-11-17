@@ -9,5 +9,7 @@ public class Teste {
 		Calculadora calc = new Calculadora();
 		
 		System.out.println(calc.soma(1.1, 2.2, 3.3, 4.4, 5.5));
+		
+		System.out.println(calc.getLoggerClass());
 	}
 }
