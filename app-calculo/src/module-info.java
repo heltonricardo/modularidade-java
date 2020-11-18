@@ -20,13 +20,25 @@ module app.calculo {
 	 * 
 	 * Exports ... to ... exporta pacotes somente para projetos específicos.
 	 * É possível separar os nomes dos projetos por vírgula.
+	 * 
+	 * Aqui foi usado provides ... with ... pois criamos uma interface em
+	 * projeto app-api-publica e queremos que app-calculo dependa apenas dessa
+	 * interface e não diretamente de uma implementação específica.
+	 * Podemos ler da seguinte maneira: CalculadoraImpl é uma implemetação que
+	 * Calculadora está provendo. Esse recurso é bastante utilizado pois como
+	 * há dependência apenas da interface, fica muito mais fácil modificar as
+	 * implementações feitas, e até mesmo alterar os pacotes que a implementam.
 	 */
 	
 	requires transitive app.login;
-	exports io.github.heltonricardo.app.calculo;
 	
-	exports io.github.heltonricardo.app.calculo.interno
-		 to app.financeiro;
+	requires app.api;
+	
+	provides io.github.heltonricardo.app.Calculadora
+	    with io.github.heltonricardo.app.calculo.CalculadoraImpl;
+	
+	exports io.github.heltonricardo.app.calculo
+	     to app.financeiro;
 	
 	// opens io.github.heltonricardo.app.calculo; para todos ou:
 	opens io.github.heltonricardo.app.calculo
